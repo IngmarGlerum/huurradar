@@ -11,8 +11,10 @@ Eenmalig, in deze volgorde. Reken op een half uur tot een uur.
    (in een nieuwe query). Elke migration voer je één keer uit, in volgorde van de datum in de bestandsnaam.
 4. **Authentication → Sign In / Providers**: zet **Allow new users to sign up** uit. Alleen mensen die
    je uitnodigt kunnen dan inloggen.
-5. **Authentication → Users → Add user → Send invitation**: nodig jezelf en je twee vrienden uit
-   met hun e-mailadres.
+5. **Authentication → Users → Add user → Create new user**: maak jezelf aan met e-mailadres en
+   wachtwoord, en zet **Auto Confirm User** aan. Zo heb je geen uitnodigingsmail nodig (die links verlopen
+   snel en mailprogramma's openen ze soms al vooraf). Je vrienden voeg je op dezelfde manier toe en je geeft
+   ze hun wachtwoord. Inloggen kan met wachtwoord of met een inloglink per mail.
 6. **Authentication → URL Configuration**:
    - **Site URL**: het adres waar de web-app draait (zie stap 4 hieronder). Voor nu `http://localhost:5173`.
    - **Redirect URLs**: voeg `http://localhost:5173` toe, en later het adres van de gehoste app.
@@ -114,4 +116,5 @@ Zet daarna het adres van de site in Supabase bij **Site URL** en **Redirect URLs
 | Melding "API-versie gewijzigd" | DAK heeft de site aangepast; de adapter moet worden bijgewerkt |
 | Geen melding, wel matches | Is Telegram gekoppeld (tabblad Meldingen)? In de worker-logs staat `melding mislukt` met de reden |
 | Bot reageert niet op Start | Draait de worker, en staat `TELEGRAM_BOT_TOKEN` in `.env`? Logs: `"telegram":true` bij het starten |
-| Inloglink komt niet aan | Check je spam; Supabase verstuurt maar een paar mails per uur met de standaardmailserver |
+| Inloglink komt niet aan / "email rate limit exceeded" | Supabase verstuurt maar een paar mails per uur met de standaardmailserver; log in met je wachtwoord |
+| "Signups not allowed" | Het e-mailadres bestaat niet als gebruiker; maak het aan (stap 1.5) |
