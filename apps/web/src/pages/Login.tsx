@@ -16,7 +16,12 @@ export function Login() {
       options: { shouldCreateUser: false, emailRedirectTo: window.location.origin },
     });
     if (error) {
-      setError(error.message);
+      // Supabase meldt een onbekend adres (bij uitgeschakelde registratie) als "Signups not allowed".
+      setError(
+        /signups not allowed/i.test(error.message)
+          ? 'Dit e-mailadres heeft (nog) geen toegang. Vraag de beheerder om je toe te voegen in Supabase.'
+          : error.message,
+      );
       setState('error');
     } else {
       setState('sent');
