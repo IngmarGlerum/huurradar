@@ -8,7 +8,7 @@ Cloud-VM kunnen afwijken; draai daarvoor het probe-script.
 **Bereikbaar, met een interne JSON-API. Geen inlog nodig.**
 
 De site is een OutSystems Reactive-app. Het volledige aanbod voor niet-ingelogde bezoekers komt uit één
-verzoek:
+verzoek. Werkt ook vanaf de Google Cloud-VM (getest).
 
 ```
 POST https://amsterdam.mijndak.nl/screenservices/DAKWP/Overzicht/Woningaanbod/DataActionHaalUitgelogdAanbod
@@ -58,16 +58,16 @@ met een reactietermijn van meestal 7 dagen.
 
 ## Pararius (`www.pararius.nl`)
 
-**Geblokkeerd vanaf het geteste datacenter-IP:** HTTP 403 met een Cloudflare-challenge ("Even
-geduld..."), ook in een headless browser. Vanaf de VM testen met het probe-script.
+**Geblokkeerd, ook vanaf de Google Cloud-VM:** HTTP 403 met een Cloudflare-challenge ("Even
+geduld..."), ook in een headless browser.
 
-Als ook de VM geblokkeerd wordt: de **e-mailmeldingen van Pararius zelf** gebruiken (zoekopdracht
+Alternatief: de **e-mailmeldingen van Pararius zelf** gebruiken (zoekopdracht
 opslaan, meldingen naar een aparte mailbox, de worker leest die via IMAP). De vertraging daarvan moet
 nog worden gemeten.
 
 ## Huurwoningen.nl (`www.huurwoningen.nl`)
 
-Zelfde beeld als Pararius: HTTP 403 met een Cloudflare-challenge.
+Zelfde beeld als Pararius: HTTP 403 met een Cloudflare-challenge, ook vanaf de VM.
 
 ## Funda
 
