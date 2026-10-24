@@ -10,7 +10,10 @@ export function loadConfig() {
     supabaseSecretKey: required('SUPABASE_SECRET_KEY'),
     // true: meldingen alleen loggen, niet versturen.
     dryRun: process.env.DRY_RUN === 'true',
-    // Optioneel: WhatsApp naar de beheerder als een bron blijft falen.
+    // Token van de Telegram-bot (@BotFather). Zonder token alleen WhatsApp via CallMeBot.
+    telegramToken: process.env.TELEGRAM_BOT_TOKEN || null,
+    // Optioneel: melding naar de beheerder als een bron blijft falen (Telegram-chat-ID of WhatsApp).
+    alertTelegramChatId: process.env.ALERT_TELEGRAM_CHAT_ID ? Number(process.env.ALERT_TELEGRAM_CHAT_ID) : null,
     alert:
       process.env.ALERT_WHATSAPP_PHONE && process.env.ALERT_CALLMEBOT_APIKEY
         ? { phone: process.env.ALERT_WHATSAPP_PHONE, apiKey: process.env.ALERT_CALLMEBOT_APIKEY }

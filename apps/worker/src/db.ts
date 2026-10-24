@@ -11,8 +11,9 @@ export interface IngestResult {
 export interface ClaimedNotification {
   match_id: number;
   user_id: string;
-  whatsapp_phone: string;
-  callmebot_apikey: string;
+  telegram_chat_id: number | null;
+  whatsapp_phone: string | null;
+  callmebot_apikey: string | null;
   listing: NormalizedListing & { id: number };
 }
 
@@ -22,6 +23,8 @@ export interface Db {
   recordRun(sourceId: string, startedAt: Date, ok: boolean, error?: string, items?: number): Promise<number>;
   claimNotifications(limit: number): Promise<ClaimedNotification[]>;
   releaseNotifications(matchIds: number[], error: string): Promise<void>;
+  linkTelegram(code: string, chatId: number): Promise<boolean>;
+  setMatchStatusByChat(chatId: number, listingId: number, status: string): Promise<number>;
 }
 
 export function createDb(url: string, secretKey: string): Db {
@@ -61,5 +64,8 @@ export function createDb(url: string, secretKey: string): Db {
     releaseNotifications: async (matchIds, error) => {
       await rpc('release_notification', { p_match_ids: matchIds, p_error: error });
     },
+    linkTelegram: (code, chatId) => rpc<boolean>('link_telegram', { p_code: code, p_chat_id: chatId }),
+    setMatchStatusByChat: (chatId, listingId, status) =>
+      rpc<number>('set_match_status_by_chat', { p_chat_id: chatId, p_listing_id: listingId, p_status: status }),
   };
 }

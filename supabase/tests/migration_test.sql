@@ -106,4 +106,54 @@ end $$;
 select record_run('dak', now(), false, 'test-fout');
 do $$ begin assert (select consecutive_failures from sources where id = 'dak') = 1, 'fout geteld'; end $$;
 
+-- ───── Telegram ─────
+-- B heeft alleen Telegram: na koppelen krijgt B ook meldingen.
+do $$
+declare code text;
+begin
+  insert into notification_settings (user_id) values ('22222222-2222-2222-2222-222222222222');
+  select telegram_link_code into code from notification_settings where user_id = '22222222-2222-2222-2222-222222222222';
+  assert length(code) = 32, 'linkcode aangemaakt';
+  assert link_telegram(code, 555) = true, 'koppelen met geldige code';
+  assert link_telegram('bestaat-niet', 555) = false, 'onbekende code';
+  assert (select telegram_chat_id from notification_settings where user_id = '22222222-2222-2222-2222-222222222222') = 555, 'chat gekoppeld';
+end $$;
+
+select ingest_listings('dak', '[
+  {"external_id":"1","url":"u1","city":"Amsterdam","rent_net":1150,"area_m2":60,"deadline_at":"2999-01-01T00:00:00Z"},
+  {"external_id":"2","url":"u2","city":"Zaandam","rent_net":800,"area_m2":70,"contract_type":"Jongerencontract","deadline_at":"2000-01-01T00:00:00Z"},
+  {"external_id":"4","url":"u4","city":"Amsterdam","rent_net":900,"area_m2":55,"deadline_at":"2999-01-01T00:00:00Z"}
+]'::jsonb, 'fp4', true, now()) as vierde;
+do $$
+declare n int;
+begin
+  select count(*) into n from claim_notifications(10) c
+  where c.telegram_chat_id = 555 and c.listing ->> 'external_id' = '4';
+  assert n = 1, 'Telegram-gebruiker krijgt melding voor woning 4';
+  assert set_match_status_by_chat(555, (select id from listings where external_id = '4'), 'reacted') = 1, 'knop gereageerd';
+  assert set_match_status_by_chat(999, (select id from listings where external_id = '4'), 'reacted') = 0, 'onbekende chat doet niets';
+end $$;
+
+-- Gebruiker kan telegram_chat_id niet zelf zetten, wel ontkoppelen.
+set role authenticated;
+set request.jwt.claim.sub = '22222222-2222-2222-2222-222222222222';
+do $$ begin
+  begin
+    update notification_settings set telegram_chat_id = 1;
+    raise exception 'telegram_chat_id had niet zelf gezet mogen worden';
+  exception when insufficient_privilege then null;
+  end;
+  begin
+    perform link_telegram('x', 1);
+    raise exception 'link_telegram had niet aanroepbaar mogen zijn';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+update notification_settings set enabled = true;
+select unlink_telegram();
+reset role;
+do $$ begin
+  assert (select telegram_chat_id from notification_settings where user_id = '22222222-2222-2222-2222-222222222222') is null, 'ontkoppeld';
+end $$;
+
 select 'ALLE TESTS GESLAAGD' as resultaat;

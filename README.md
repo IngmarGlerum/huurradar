@@ -1,7 +1,7 @@
 # huurradar
 
 Huurwoningzoeker voor mezelf en twee vrienden. Verzamelt het aanbod van meerdere huursites, filtert op
-ieders zoekprofiel en stuurt direct een melding (WhatsApp, met e-mail of Telegram als achtervang) zodra
+ieders zoekprofiel en stuurt direct een melding (Telegram, of WhatsApp via CallMeBot) zodra
 er een nieuwe passende woning online komt. Wie als eerste reageert, maakt vaak de meeste kans.
 
 Eerste focus: **middenhuur en sociale huur in Amsterdam**.
@@ -13,7 +13,7 @@ worker (Node, Google Cloud VM)        Supabase (Postgres, auth, realtime)       
   scheduler per bron                    listings, search_profiles, matches          realtime lijst met matches
   → ondiepe check (vingerafdruk)  ───▶  trigger: match tegen alle profielen  ◀───  statussen, filters, dismiss
   → diff → detail → upsert              scrape_runs (monitoring)
-  → notifier (WhatsApp/e-mail)  ◀──── matches waar notified_at IS NULL
+  → notifier (Telegram/WhatsApp)  ◀──── matches waar notified_at IS NULL
 ```
 
 - **worker**: draait als Docker-container op een Google Cloud e2-micro-VM. Eén adapter per bron.
@@ -24,7 +24,7 @@ worker (Node, Google Cloud VM)        Supabase (Postgres, auth, realtime)       
 
 - [x] Bronnenonderzoek: zie [docs/bronnen.md](docs/bronnen.md)
 - [x] Probe-script om bronnen vanaf de VM te testen
-- [x] **MVP voor Amsterdam DAK**: database, worker, WhatsApp-meldingen en web-app.
+- [x] **MVP voor Amsterdam DAK**: database, worker, Telegram- en WhatsApp-meldingen en web-app.
       Installeren: zie [docs/handleiding.md](docs/handleiding.md)
 - [ ] Web-app online hosten
 - [ ] Pararius via de e-mailmeldingen van Pararius

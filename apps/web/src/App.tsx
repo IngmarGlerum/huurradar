@@ -64,7 +64,7 @@ export function App() {
           <Tabs.List mb={4} overflowX="auto">
             <Tabs.Trigger value="woningen">Woningen</Tabs.Trigger>
             <Tabs.Trigger value="profielen">Zoekprofielen</Tabs.Trigger>
-            <Tabs.Trigger value="meldingen">WhatsApp</Tabs.Trigger>
+            <Tabs.Trigger value="meldingen">Meldingen</Tabs.Trigger>
             <Tabs.Trigger value="status">Status</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="woningen">

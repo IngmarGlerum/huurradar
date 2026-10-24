@@ -57,6 +57,8 @@ export interface NotificationSettings {
   user_id: string;
   whatsapp_phone: string | null;
   callmebot_apikey: string | null;
+  telegram_chat_id: number | null;
+  telegram_link_code: string;
   enabled: boolean;
 }
 
