@@ -127,7 +127,7 @@ describe('notifier', () => {
 describe('formatMessage', () => {
   it('toont adres, huur, m², type en deadline', () => {
     const text = formatMessage([listing('383139')]);
-    expect(text).toContain('*Keizersgracht 12A, Amsterdam (Centrum)*');
+    expect(text).toContain('*Keizersgracht 12A, Amsterdam · Centrum*');
     expect(text).toMatch(/€\s1\.100 kaal · 61 m² · 3 kamers/);
     expect(text).toContain('Middenhuur · Vrije sector · Eigen Haard');
     expect(text).toContain('Reageren tot');

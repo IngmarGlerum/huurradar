@@ -5,7 +5,7 @@ const euro = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR'
 
 export function formatListing(l: NormalizedListing): string {
   const address = [l.street, l.house_number].filter(Boolean).join(' ');
-  const place = [l.city, l.district && l.district !== l.city ? `(${l.district})` : null].filter(Boolean).join(' ');
+  const place = [l.city, l.district !== l.city ? l.district : null].filter(Boolean).join(' · ');
   const facts = [
     l.rent_net != null ? `${euro.format(l.rent_net)} kaal` : null,
     l.area_m2 != null ? `${Math.round(l.area_m2)} m²` : null,

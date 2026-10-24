@@ -24,9 +24,32 @@ worker (Node, Google Cloud VM)        Supabase (Postgres, auth, realtime)       
 
 - [x] Bronnenonderzoek: zie [docs/bronnen.md](docs/bronnen.md)
 - [x] Probe-script om bronnen vanaf de VM te testen
-- [ ] Monorepo-skelet (`apps/web`, `apps/worker`, `packages/shared`, `supabase/`)
-- [ ] Database-schema, RLS en match-trigger
-- [ ] Eerste bron (Amsterdam DAK) van poll tot WhatsApp-bericht
+- [x] **MVP voor Amsterdam DAK**: database, worker, WhatsApp-meldingen en web-app.
+      Installeren: zie [docs/handleiding.md](docs/handleiding.md)
+- [ ] Web-app online hosten
+- [ ] Pararius via de e-mailmeldingen van Pararius
+- [ ] Automatisch reageren
+
+## Repo
+
+| Map | Inhoud |
+|---|---|
+| `apps/worker` | scraper + notifier (Node/TypeScript), draait in Docker op de VM |
+| `apps/web` | web-app (Vite + React + Chakra UI v3) |
+| `supabase/migrations` | databaseschema, RLS, matching en worker-functies |
+| `supabase/tests` | tests van de migrations op een kale Postgres |
+| `probe` | los script om bronnen te testen |
+| `docs` | bronnenonderzoek en handleiding |
+
+## Ontwikkelen
+
+```bash
+pnpm install
+pnpm test                                    # unit tests worker
+pnpm typecheck
+PGHOST=... supabase/tests/run.sh             # databasetests (vereist een lokale Postgres)
+pnpm --filter @huurradar/web dev             # web-app op http://localhost:5173
+```
 
 ## Probe draaien
 
