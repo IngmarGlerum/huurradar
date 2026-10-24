@@ -70,6 +70,11 @@ function Telegram({ s, reload }: { s: NotificationSettings; reload: () => Promis
                 </Text>
               )}
             </Flex>
+            {/* Als je de bot al eerder hebt gestart, stuurt Telegram de code soms niet mee. */}
+            <Text fontSize="sm" color="fg.muted">
+              Gebeurt er niets? Stuur de bot <Code>@{BOT_USERNAME}</Code> dan zelf dit bericht:{' '}
+              <Code userSelect="all">/start {s.telegram_link_code}</Code>
+            </Text>
           </>
         )}
       </Card.Body>
