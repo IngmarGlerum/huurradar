@@ -17,7 +17,7 @@ worker (Node, Google Cloud VM)        Supabase (Postgres, auth, realtime)       
 ```
 
 - **worker**: draait als Docker-container op een Google Cloud e2-micro-VM. Eén adapter per bron.
-- **Supabase**: database, auth (alleen uitgenodigde gebruikers), RLS en realtime.
+- **Supabase**: database, auth (registreren met uitnodigingscode), RLS en realtime.
 - **web**: Vite + React + TypeScript + Chakra UI v3, praat rechtstreeks met Supabase.
 
 ## Status

@@ -8,7 +8,9 @@ Eenmalig, in deze volgorde. Reken op een half uur tot een uur.
 2. Plak de inhoud van [`supabase/migrations/20261024000000_init.sql`](../supabase/migrations/20261024000000_init.sql)
    en klik op **Run**. Je ziet "Success. No rows returned".
 3. Doe hetzelfde met [`supabase/migrations/20261025000000_telegram.sql`](../supabase/migrations/20261025000000_telegram.sql)
-   (in een nieuwe query). Elke migration voer je één keer uit, in volgorde van de datum in de bestandsnaam.
+   (in een nieuwe query), en daarna met
+   [`supabase/migrations/20261029000000_invite_code.sql`](../supabase/migrations/20261029000000_invite_code.sql).
+   Elke migration voer je één keer uit, in volgorde van de datum in de bestandsnaam.
 4. **Authentication → Sign In / Providers**: zet **Allow new users to sign up** uit. Alleen mensen die
    je uitnodigt kunnen dan inloggen.
 5. **Authentication → Users → Add user → Create new user**: maak jezelf aan met e-mailadres en
@@ -20,6 +22,25 @@ Eenmalig, in deze volgorde. Reken op een half uur tot een uur.
    - **Redirect URLs**: voeg `http://localhost:5173` toe, en later het adres van de gehoste app.
 7. **Project Settings → API Keys**: hier staan de **publishable key** (voor de web-app) en de
    **secret key** (voor de worker). Deel de secret key met niemand.
+
+### Zelf registreren met een uitnodigingscode
+
+Gebruikers kunnen zelf een account aanmaken in de app ("Nog geen account? Account aanmaken"), met een
+uitnodigingscode die jij uitdeelt. Zonder de juiste code weigert de database het account.
+
+1. **Code instellen** (SQL Editor, nieuwe query):
+   ```sql
+   update public.app_config set invite_code = 'kies-een-lange-code';
+   ```
+2. **Authentication → Sign In / Providers**: zet **Allow new users to sign up** aan.
+3. Bij **Email**: zet **Confirm email** uit. Anders moet elke nieuwe gebruiker eerst een bevestigingsmail
+   aanklikken, en de standaardmailserver van Supabase verstuurt maar een paar mails per uur.
+4. Stuur je vrienden het adres van de app en de code.
+
+Zolang er een code is ingesteld, kun je via het dashboard ("Create new user") geen gebruikers meer
+aanmaken: ook die moeten de code meesturen. Laat nieuwe mensen zich dus via de app registreren.
+Registreren weer dichtzetten: `update public.app_config set invite_code = null;` én **Allow new users to
+sign up** uit. (Alleen de code op `null` zetten is niet genoeg: dan controleert de database niets meer.)
 
 ## 2. Telegram-bot aanmaken (eenmalig, door jou)
 
@@ -117,4 +138,5 @@ Zet daarna het adres van de site in Supabase bij **Site URL** en **Redirect URLs
 | Geen melding, wel matches | Is Telegram gekoppeld (tabblad Meldingen)? In de worker-logs staat `melding mislukt` met de reden |
 | Bot reageert niet op Start | Draait de worker, en staat `TELEGRAM_BOT_TOKEN` in `.env`? Logs: `"telegram":true` bij het starten |
 | Inloglink komt niet aan / "email rate limit exceeded" | Supabase verstuurt maar een paar mails per uur met de standaardmailserver; log in met je wachtwoord |
-| "Signups not allowed" | Het e-mailadres bestaat niet als gebruiker; maak het aan (stap 1.5) |
+| "Signups not allowed" | Registreren staat uit, of het e-mailadres bestaat niet als gebruiker |
+| "De uitnodigingscode klopt niet" | Controleer de code; de actuele staat in `public.app_config` |

@@ -156,4 +156,37 @@ do $$ begin
   assert (select telegram_chat_id from notification_settings where user_id = '22222222-2222-2222-2222-222222222222') is null, 'ontkoppeld';
 end $$;
 
+-- ───── Uitnodigingscode ─────
+do $$ begin
+  -- Zonder code: geen controle (zoals voor de bestaande gebruikers hierboven).
+  insert into auth.users (email) values ('zonder-code@example.com');
+  update app_config set invite_code = 'geheim-123';
+  begin
+    insert into auth.users (email) values ('geen-code@example.com');
+    raise exception 'gebruiker zonder code had geweigerd moeten worden';
+  exception when raise_exception then
+    if sqlerrm <> 'Ongeldige uitnodigingscode' then raise; end if;
+  end;
+  begin
+    insert into auth.users (email, raw_user_meta_data) values ('fout@example.com', '{"invite_code":"fout"}');
+    raise exception 'verkeerde code had geweigerd moeten worden';
+  exception when raise_exception then
+    if sqlerrm <> 'Ongeldige uitnodigingscode' then raise; end if;
+  end;
+  insert into auth.users (email, raw_user_meta_data) values ('goed@example.com', '{"invite_code":"geheim-123","naam":"x"}');
+  assert (select raw_user_meta_data from auth.users where email = 'goed@example.com') = '{"naam":"x"}', 'code niet bewaard';
+end $$;
+
+set role anon;
+do $$ begin
+  assert check_invite_code('geheim-123'), 'goede code';
+  assert not check_invite_code('fout'), 'foute code';
+  begin
+    perform * from app_config;
+    raise exception 'app_config had niet leesbaar mogen zijn';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+reset role;
+
 select 'ALLE TESTS GESLAAGD' as resultaat;
