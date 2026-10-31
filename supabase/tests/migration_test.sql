@@ -14,6 +14,9 @@ set request.jwt.claim.sub = '22222222-2222-2222-2222-222222222222';
 insert into search_profiles (exclude_contract_types) values ('{Jongerencontract}');
 reset role;
 
+-- DAK heeft al eerder gedraaid (anders telt dit als eerste ronde, zonder meldingen).
+update sources set last_success_at = now() - interval '1 hour' where id = 'dak';
+
 -- Eerste ingest: drie woningen.
 select ingest_listings('dak', '[
   {"external_id":"1","url":"u1","city":"Amsterdam","rent_net":1100,"area_m2":60,"contract_type":"Onbepaalde tijd contract","deadline_at":"2999-01-01T00:00:00Z"},
@@ -188,5 +191,17 @@ do $$ begin
   end;
 end $$;
 reset role;
+
+-- ───── Eerste ronde van een nieuwe bron geeft geen meldingen ─────
+insert into sources (id, name) values ('nieuw', 'Nieuwe bron');
+select ingest_listings('nieuw', '[{"external_id":"n1","url":"x","city":"Amsterdam","rent_net":900,"area_m2":60}]'::jsonb, 'f1', true, now());
+select ingest_listings('nieuw', '[{"external_id":"n1","url":"x","city":"Amsterdam","rent_net":900,"area_m2":60},
+                                  {"external_id":"n2","url":"y","city":"Amsterdam","rent_net":950,"area_m2":60}]'::jsonb, 'f2', true, now());
+do $$ begin
+  assert (select count(*) from matches m join listings l on l.id = m.listing_id
+          where l.external_id = 'n1' and m.notified_at is null) = 0, 'eerste ronde: geen melding';
+  assert (select count(*) from matches m join listings l on l.id = m.listing_id
+          where l.external_id = 'n2' and m.notified_at is null) > 0, 'tweede ronde: wel melding';
+end $$;
 
 select 'ALLE TESTS GESLAAGD' as resultaat;
