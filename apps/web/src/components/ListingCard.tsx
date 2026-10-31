@@ -8,6 +8,8 @@ interface Props {
   onStatus: (status: UserStatus) => void;
 }
 
+const SOURCE_NAMES: Record<string, string> = { dak: 'DAK', vesteda: 'Vesteda', mvgm: 'MVGM' };
+
 const UNAVAILABLE_TEXT: Record<Exclude<Listing['status'], 'active'>, string> = {
   closed: 'Niet meer beschikbaar · reactietermijn verlopen',
   offline: 'Niet meer beschikbaar · staat niet meer online',
@@ -102,7 +104,7 @@ export function ListingCard({ listing: l, userStatus, onStatus }: Props) {
         <Flex gap={2} wrap="wrap">
           <Button asChild size="sm" colorPalette="blue" disabled={!available}>
             <Link href={l.url} target="_blank" rel="noreferrer" onClick={() => isNew && onStatus('seen')}>
-              Bekijk op DAK
+              Bekijk bij {SOURCE_NAMES[l.source_id] ?? l.landlord ?? 'aanbieder'}
             </Link>
           </Button>
           {available && userStatus !== 'reacted' && (

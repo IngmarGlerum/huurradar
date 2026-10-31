@@ -8,8 +8,9 @@ Eenmalig, in deze volgorde. Reken op een half uur tot een uur.
 2. Plak de inhoud van [`supabase/migrations/20261024000000_init.sql`](../supabase/migrations/20261024000000_init.sql)
    en klik op **Run**. Je ziet "Success. No rows returned".
 3. Doe hetzelfde met [`supabase/migrations/20261025000000_telegram.sql`](../supabase/migrations/20261025000000_telegram.sql)
-   (in een nieuwe query), en daarna met
-   [`supabase/migrations/20261029000000_invite_code.sql`](../supabase/migrations/20261029000000_invite_code.sql).
+   (in een nieuwe query), daarna met
+   [`supabase/migrations/20261029000000_invite_code.sql`](../supabase/migrations/20261029000000_invite_code.sql)
+   en [`supabase/migrations/20261031000000_vesteda_mvgm.sql`](../supabase/migrations/20261031000000_vesteda_mvgm.sql).
    Elke migration voer je één keer uit, in volgorde van de datum in de bestandsnaam.
 4. **Authentication → Sign In / Providers**: zet **Allow new users to sign up** uit. Alleen mensen die
    je uitnodigt kunnen dan inloggen.

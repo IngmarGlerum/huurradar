@@ -56,6 +56,47 @@ met een reactietermijn van meestal 7 dagen.
   en **reactietijd**, en worden de eerste tien uitgenodigd. Dus: om 00:01 een melding sturen telt.
 - **Schema:** elke minuut tussen 00:00 en 00:15, verder elk uur.
 
+## Vesteda (`www.vesteda.com`)
+
+**Bereikbaar, open JSON-API, geen inlog.** Grootste woningbelegger van Nederland.
+
+```
+POST https://www.vesteda.com/api/units/search/facet
+Content-Type: application/json
+{"filters":[0],"latitude":52.3675734,"longitude":4.9041389,"place":"Amsterdam",
+ "placeObject":{"placeType":"1","name":"Amsterdam","latitude":"52.3675734","longitude":"4.9041389"},
+ "placeType":1,"radius":15,"sorting":0,"priceFrom":0,"priceTo":9999,"language":"nl"}
+```
+
+- Woningen staan in `results.objects` (projecten in `results.complexes`, die gebruiken we niet).
+- `status` (uit de JavaScript van de site): 1 = te huur, 2 = verhuurd, 3 = verhuurd onder voorbehoud,
+  4 = gereserveerd. We nemen alleen status 1 mee.
+- Velden: `id`, adres, `postalCode`, `priceUnformatted`, `size`, `numberOfBedRooms`, `onlyMiddleRent`,
+  `onlySixtyFivePlus`, coördinaten, `url`.
+- Bij de test (okt 2026): 89 woningen binnen 10 km, waarvan 27 te huur; 3 daarvan tot €1.250.
+
+## MVGM (`ikwilhuren.nu`)
+
+**Bereikbaar, gewone HTML.** Grote vastgoedbeheerder, verhuurt voor meerdere beleggers.
+
+- `GET https://ikwilhuren.nu/aanbod/amsterdam/?sort=aanbodDESC&page=N`: 10 woningen per pagina,
+  nieuwste eerst, standaardstraal 10 km rond Amsterdam (266 woningen, 27 pagina's bij de test).
+- Kaart: `.card-woning`; link `/object/<plaats>-<postcode>-<nr>-<straat>-<32 hex id>/`; status in het
+  label met `.status-dot` ("Te huur", "Gereserveerd", "Verhuurd onder voorbehoud", "Verhuurd"); andere
+  labels zijn extra's ("met berging", "55+"). Prijs `€ 1.733,- /mnd`, m², slaapkamers.
+- Ondiepe check: elke run alleen pagina 1 (plus volgende pagina's zolang alles nieuw is); elke 6 uur een
+  volledige ronde voor de offline-detectie.
+- Afbeeldingen komen van `*.static.nbo.nl`: mogelijk een gedeeld platform.
+
+## Andere kandidaten (okt 2026)
+
+| Kandidaat | Resultaat |
+|---|---|
+| MVA (`mva.nl`) | Gewone HTML, maar vrijwel alleen boven €2.000 |
+| Makelaardij De Nederlanden (`mdn.nl`) | Alleen vanaf €3.600 |
+| Inter Immo (`interimmo.nl`) | HTTP 403 |
+| Ik zoek middenhuur (Achmea, `ikzoekmiddenhuur.nl`) | "Website not configured": lijkt offline |
+
 ## Pararius (`www.pararius.nl`)
 
 **Geblokkeerd, ook vanaf de Google Cloud-VM:** HTTP 403 met een Cloudflare-challenge ("Even

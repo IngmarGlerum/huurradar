@@ -2,6 +2,11 @@ import { formatAmsterdam } from '../time.js';
 import type { NormalizedListing } from '../types.js';
 import type { InlineButton } from './telegram.js';
 
+// Korte naam van de bron voor in berichten ("Nieuwe woning bij DAK", "Bekijk bij Vesteda").
+const SOURCE_NAMES: Record<string, string> = { dak: 'DAK', vesteda: 'Vesteda', mvgm: 'MVGM' };
+export const sourceName = (l: NormalizedListing & { source_id?: string }) =>
+  SOURCE_NAMES[l.source_id ?? ''] ?? l.landlord ?? 'huurradar';
+
 const euro = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 
 function parts(l: NormalizedListing) {
@@ -31,7 +36,8 @@ export function formatListing(l: NormalizedListing): string {
 }
 
 export function formatMessage(listings: NormalizedListing[]): string {
-  const title = listings.length === 1 ? '🏠 Nieuwe woning op DAK' : `🏠 ${listings.length} nieuwe woningen op DAK`;
+  const names = [...new Set(listings.map(sourceName))].join(', ');
+  const title = listings.length === 1 ? `🏠 Nieuwe woning bij ${names}` : `🏠 ${listings.length} nieuwe woningen (${names})`;
   return [`*${title}*`, ...listings.map(formatListing)].join('\n\n');
 }
 
@@ -41,7 +47,7 @@ const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 export function formatTelegram(l: NormalizedListing): string {
   const p = parts(l);
   return [
-    '🏠 <b>Nieuwe woning op DAK</b>',
+    `🏠 <b>Nieuwe woning bij ${escapeHtml(sourceName(l))}</b>`,
     '',
     `<b>${escapeHtml(p.address || 'Adres onbekend')}</b>`,
     p.place ? escapeHtml(p.place) : null,
@@ -55,7 +61,7 @@ export function formatTelegram(l: NormalizedListing): string {
 
 export function telegramKeyboard(l: NormalizedListing & { id: number }): InlineButton[][] {
   return [
-    [{ text: 'Bekijk op DAK', url: l.url }],
+    [{ text: `Bekijk bij ${sourceName(l)}`, url: l.url }],
     [
       { text: '✅ Gereageerd', callback_data: `reacted:${l.id}` },
       { text: '🗑 Niet interessant', callback_data: `dismissed:${l.id}` },
