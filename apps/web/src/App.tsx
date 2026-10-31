@@ -5,6 +5,7 @@ import { Login } from './pages/Login';
 import { Matches } from './pages/Matches';
 import { Notifications } from './pages/Notifications';
 import { Profiles } from './pages/Profiles';
+import { SetPassword } from './pages/SetPassword';
 import { Status } from './pages/Status';
 import { supabase } from './supabase';
 
@@ -19,10 +20,15 @@ function initialTab(): Tab {
 export function App() {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   const [tab, setTab] = useState<Tab>(initialTab);
+  // Na de herstellink uit de mail (of via "Wachtwoord wijzigen"): eerst een nieuw wachtwoord kiezen.
+  const [settingPassword, setSettingPassword] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
+    const { data } = supabase.auth.onAuthStateChange((event, s) => {
+      setSession(s);
+      if (event === 'PASSWORD_RECOVERY') setSettingPassword(true);
+    });
     return () => data.subscription.unsubscribe();
   }, []);
 
@@ -34,6 +40,17 @@ export function App() {
     );
   }
   if (!session) return <Login />;
+  if (settingPassword) {
+    return (
+      <SetPassword
+        onDone={() => {
+          setSettingPassword(false);
+          window.history.replaceState(null, '', `#${tab}`);
+        }}
+        onCancel={() => setSettingPassword(false)}
+      />
+    );
+  }
 
   const userId = session.user.id;
 
@@ -46,6 +63,9 @@ export function App() {
             <Text fontSize="sm" color="fg.muted">
               {session.user.email}
             </Text>
+            <Button size="xs" variant="ghost" onClick={() => setSettingPassword(true)}>
+              Wachtwoord wijzigen
+            </Button>
             <Button size="xs" variant="outline" onClick={() => supabase.auth.signOut()}>
               Uitloggen
             </Button>

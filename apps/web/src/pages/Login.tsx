@@ -2,9 +2,9 @@ import { Alert, Box, Button, Card, Center, Field, Flex, Heading, Input, Stack, T
 import { useState, type FormEvent } from 'react';
 import { supabase } from '../supabase';
 
-type Mode = 'password' | 'link' | 'signup';
+type Mode = 'password' | 'link' | 'signup' | 'reset';
 
-const MIN_PASSWORD = 8;
+import { MIN_PASSWORD } from './SetPassword';
 
 function translate(message: string): string {
   // Supabase meldt een onbekend adres (bij uitgeschakelde registratie) als "Signups not allowed".
@@ -32,6 +32,7 @@ const TITLES: Record<Mode, string> = {
   password: 'Inloggen',
   link: 'Stuur inloglink',
   signup: 'Account aanmaken',
+  reset: 'Stuur herstellink',
 };
 
 export function Login() {
@@ -67,6 +68,11 @@ export function Login() {
     e.preventDefault();
     setState('busy');
     if (mode === 'signup') return signup();
+    if (mode === 'reset') {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
+      if (error) return fail(error.message);
+      return setState('sent');
+    }
 
     const { error } =
       mode === 'password'
@@ -99,7 +105,7 @@ export function Login() {
               <Field.Label>E-mailadres</Field.Label>
               <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
             </Field.Root>
-            {mode !== 'link' && (
+            {(mode === 'password' || mode === 'signup') && (
               <Field.Root required>
                 <Field.Label>Wachtwoord</Field.Label>
                 <Input
@@ -118,6 +124,11 @@ export function Login() {
               </Field.Root>
             )}
             {mode === 'link' && <Text color="fg.muted">Je krijgt een inloglink per mail.</Text>}
+            {mode === 'reset' && (
+              <Text color="fg.muted">
+                Je krijgt een mail met een link. Daarmee kies je een nieuw wachtwoord.
+              </Text>
+            )}
             <Button type="submit" colorPalette="blue" loading={state === 'busy'}>
               {TITLES[mode]}
             </Button>
@@ -133,6 +144,11 @@ export function Login() {
                 </Button>
               )}
               {mode === 'password' && (
+                <Button variant="plain" size="sm" color="fg.muted" onClick={() => switchMode('reset')}>
+                  Wachtwoord vergeten?
+                </Button>
+              )}
+              {mode === 'password' && (
                 <Button variant="plain" size="sm" color="fg.muted" onClick={() => switchMode('link')}>
                   Liever een inloglink per mail
                 </Button>
@@ -141,7 +157,11 @@ export function Login() {
             {state === 'sent' && (
               <Alert.Root status="success">
                 <Alert.Indicator />
-                <Alert.Title>Check je mail voor de inloglink.</Alert.Title>
+                <Alert.Title>
+                  {mode === 'reset'
+                    ? 'Als dit adres een account heeft, staat er nu een herstellink in je mail. Kijk ook in je spam.'
+                    : 'Check je mail voor de inloglink.'}
+                </Alert.Title>
               </Alert.Root>
             )}
             {state === 'confirm' && (

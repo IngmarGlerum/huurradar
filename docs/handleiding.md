@@ -141,5 +141,6 @@ Zet daarna het adres van de site in Supabase bij **Site URL** en **Redirect URLs
 | Geen melding, wel matches | Is Telegram gekoppeld (tabblad Meldingen)? In de worker-logs staat `melding mislukt` met de reden |
 | Bot reageert niet op Start | Draait de worker, en staat `TELEGRAM_BOT_TOKEN` in `.env`? Logs: `"telegram":true` bij het starten |
 | Inloglink komt niet aan / "email rate limit exceeded" | Supabase verstuurt maar een paar mails per uur met de standaardmailserver; log in met je wachtwoord |
+| Wachtwoord vergeten | Inlogscherm → "Wachtwoord vergeten?". De link in de mail moet naar het adres van de app gaan: dat adres moet bij **Redirect URLs** staan (stap 1.6) |
 | "Signups not allowed" | Registreren staat uit, of het e-mailadres bestaat niet als gebruiker |
 | "De uitnodigingscode klopt niet" | Controleer de code; de actuele staat in `public.app_config` |
