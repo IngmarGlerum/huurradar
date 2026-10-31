@@ -8,7 +8,13 @@ interface Props {
   onStatus: (status: UserStatus) => void;
 }
 
-const SOURCE_NAMES: Record<string, string> = { dak: 'DAK', vesteda: 'Vesteda', mvgm: 'MVGM' };
+const SOURCE_NAMES: Record<string, string> = {
+  dak: 'DAK',
+  vesteda: 'Vesteda',
+  mvgm: 'MVGM',
+  vanderlinden: 'Van der Linden',
+  vbt: 'VB&T',
+};
 
 const UNAVAILABLE_TEXT: Record<Exclude<Listing['status'], 'active'>, string> = {
   closed: 'Niet meer beschikbaar · reactietermijn verlopen',

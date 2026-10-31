@@ -3,7 +3,13 @@ import type { NormalizedListing } from '../types.js';
 import type { InlineButton } from './telegram.js';
 
 // Korte naam van de bron voor in berichten ("Nieuwe woning bij DAK", "Bekijk bij Vesteda").
-const SOURCE_NAMES: Record<string, string> = { dak: 'DAK', vesteda: 'Vesteda', mvgm: 'MVGM' };
+const SOURCE_NAMES: Record<string, string> = {
+  dak: 'DAK',
+  vesteda: 'Vesteda',
+  mvgm: 'MVGM',
+  vanderlinden: 'Van der Linden',
+  vbt: 'VB&T',
+};
 export const sourceName = (l: NormalizedListing & { source_id?: string }) =>
   SOURCE_NAMES[l.source_id ?? ''] ?? l.landlord ?? 'huurradar';
 

@@ -11,7 +11,8 @@ Eenmalig, in deze volgorde. Reken op een half uur tot een uur.
    (in een nieuwe query), daarna met
    [`supabase/migrations/20261029000000_invite_code.sql`](../supabase/migrations/20261029000000_invite_code.sql)
    , [`supabase/migrations/20261031000000_vesteda_mvgm.sql`](../supabase/migrations/20261031000000_vesteda_mvgm.sql)
-   en [`supabase/migrations/20261101000000_quiet_first_run.sql`](../supabase/migrations/20261101000000_quiet_first_run.sql).
+   , [`supabase/migrations/20261101000000_quiet_first_run.sql`](../supabase/migrations/20261101000000_quiet_first_run.sql)
+   en [`supabase/migrations/20261101010000_vanderlinden_vbt.sql`](../supabase/migrations/20261101010000_vanderlinden_vbt.sql).
    Elke migration voer je één keer uit, in volgorde van de datum in de bestandsnaam.
 4. **Authentication → Sign In / Providers**: zet **Allow new users to sign up** uit. Alleen mensen die
    je uitnodigt kunnen dan inloggen.

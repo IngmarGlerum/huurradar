@@ -88,6 +88,31 @@ Content-Type: application/json
   volledige ronde voor de offline-detectie.
 - Afbeeldingen komen van `*.static.nbo.nl`: mogelijk een gedeeld platform.
 
+## VB&T (`vbtverhuurmakelaars.nl`)
+
+**Open JSON-API.** Verhuurt o.a. voor Amvest en Bouwinvest.
+
+```
+POST https://vbtverhuurmakelaars.nl/api/properties/search?type=purchase   (geeft toch huurwoningen)
+Content-Type: application/json, Referer: https://vbtverhuurmakelaars.nl/woningen
+{"limit":1000,"page":1,"filter":{"city":"","radius":0,"address":"","priceRental":{"min":0,"max":0},
+ "availablefrom":"","surface":"","rooms":0,"typeCategory":""}}
+```
+
+- `houses[]`: `id`, `url`, `address.city/house` (geen postcode), `prices.rental.price/serviceCharges`,
+  `plot` (m²), `rooms`, `status.name` (available, option, rentreserved, rentinuse), `attributes.type.category`
+  ("other" = parkeerplaats), `usps` (bevat de inkomensgrens bij gereguleerde huur), `coordinate`.
+- Bij de test: 365 woningen landelijk, 273 beschikbaar, 110 in de regio Amsterdam; 3 tot €1.250, 11 tot €1.500.
+
+## Van der Linden (`www.vanderlinden.nl`)
+
+**Eén HTML-pagina** met alle huurwoningen (`/woning-huren/`, 180 kaarten). Verhuurt o.a. voor Amvest.
+
+- Kaart `.woninginfo`, link `a.blocklink` → `/huurwoning/<adres>-<plaats>/<id>/`; label `.fotolabel`
+  (Direct/Binnenkort beschikbaar, Onder optie, Seniorenwoning, Belangstellendenlijst). Geen postcode.
+- **Let op:** de site weigert verzoeken zonder `Accept: text/html` (verbinding verbroken) en gaf daarna
+  tijdelijk HTTP 403. Valt de bron steeds uit, dan niet omzeilen maar laten vallen.
+
 ## Andere kandidaten (okt 2026)
 
 | Kandidaat | Resultaat |
@@ -96,6 +121,12 @@ Content-Type: application/json
 | Makelaardij De Nederlanden (`mdn.nl`) | Alleen vanaf €3.600 |
 | Inter Immo (`interimmo.nl`) | HTTP 403 |
 | Ik zoek middenhuur (Achmea, `ikzoekmiddenhuur.nl`) | "Website not configured": lijkt offline |
+| Amvest | Verhuurt niet zelf; via Van der Linden en VB&T (Amsterdam) |
+| Wonen bij Bouwinvest | JSON-API; 15 beschikbaar in Amsterdam, 0 tot €1.250; deels ook via MVGM |
+| NMG Wonen | HTML; 7 beschikbaar in Amsterdam, 0 tot €1.250 |
+| Heimstaden | 1 woning in Amsterdam |
+| Rebo | Bot-check (Vercel Security Checkpoint): niet bruikbaar |
+| 123Wonen, PUUR, Amsterdam Wonen, Rotsvast | Niets in budget of geen Amsterdams aanbod |
 
 ## Pararius (`www.pararius.nl`)
 

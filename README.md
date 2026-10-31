@@ -27,7 +27,7 @@ worker (Node, Google Cloud VM)        Supabase (Postgres, auth, realtime)       
 - [x] **MVP voor Amsterdam DAK**: database, worker, Telegram- en WhatsApp-meldingen en web-app.
       Installeren: zie [docs/handleiding.md](docs/handleiding.md)
 - [x] Web-app online (Vercel)
-- [x] Vesteda en MVGM (ikwilhuren.nu)
+- [x] Vesteda, MVGM (ikwilhuren.nu), Van der Linden en VB&T
 - [ ] Meer beleggers en verhuurmakelaars (zie [docs/bronnen.md](docs/bronnen.md))
 - [ ] Automatisch reageren
 

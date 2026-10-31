@@ -18,6 +18,11 @@ export function loadConfig() {
       process.env.ALERT_WHATSAPP_PHONE && process.env.ALERT_CALLMEBOT_APIKEY
         ? { phone: process.env.ALERT_WHATSAPP_PHONE, apiKey: process.env.ALERT_CALLMEBOT_APIKEY }
         : null,
+    // Bronnen die niet mogen draaien, kommagescheiden (bijv. "vanderlinden").
+    disabledSources: (process.env.DISABLED_SOURCES ?? '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
     // Bestand dat na elke run wordt bijgewerkt; de Docker-healthcheck kijkt naar de leeftijd.
     heartbeatFile: process.env.HEARTBEAT_FILE ?? '/tmp/huurradar-heartbeat',
   };

@@ -9,6 +9,8 @@ import { createTelegram } from './notify/telegram.js';
 import { runSource, type Alert } from './runner.js';
 import { createDakSource } from './sources/dak.js';
 import { createMvgmSource } from './sources/mvgm.js';
+import { createVanderLindenSource } from './sources/vanderlinden.js';
+import { createVbtSource } from './sources/vbt.js';
 import { createVestedaSource } from './sources/vesteda.js';
 import type { Source } from './types.js';
 
@@ -19,7 +21,13 @@ const notifier = createNotifier(db, {
   dryRun: config.dryRun,
   senders: { telegram: telegram ? (chatId, html, keyboard) => telegram.sendMessage(chatId, html, keyboard) : null },
 });
-const sources: Source[] = [createDakSource(), createVestedaSource(), createMvgmSource()];
+const sources: Source[] = [
+  createDakSource(),
+  createVestedaSource(),
+  createMvgmSource(),
+  createVanderLindenSource(),
+  createVbtSource(),
+].filter((s) => !config.disabledSources.includes(s.id));
 const once = process.argv.includes('--once');
 
 const alert: Alert = async (text) => {

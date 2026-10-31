@@ -1,0 +1,514 @@
+{
+ "houses": [
+  {
+   "address": {
+    "city": "Amsterdam",
+    "house": "Stephensonstraat 18 G"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 2193,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 60,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 855000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 272,
+    "parkingCharges": 183,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "available",
+    "code": 1
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 99,
+   "rooms": 3,
+   "interestedParties": 38,
+   "sourceId": "35157264",
+   "acceptance": "2026-11-17T00:00:00.000Z",
+   "usps": [
+    {
+     "type": "Overzicht",
+     "text": "Bij deze woning is het huren van een parkeerplaats à €187,- servicekosten per maand een vereiste."
+    }
+   ],
+   "coordinate": [
+    4.919172,
+    52.350013
+   ],
+   "image": "/images/ca2e07-w300-s-fwj/stephensonstraat-18-g",
+   "id": "9ba5e9",
+   "url": "/woning/amsterdam-stephensonstraat-18g",
+   "source": {
+    "feed": "eyemove",
+    "id": "35157264",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/Amsterdam-Stephensonstraat-18G/",
+    "lastImported": "2026-10-31T15:06:54.530Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "Amsterdam",
+    "house": "Sausalitolaan 212"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 1605,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 90,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 639000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 229,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "available",
+    "code": 1
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 68,
+   "rooms": 2,
+   "interestedParties": 84,
+   "sourceId": "34871523",
+   "acceptance": "2026-11-16T00:00:00.000Z",
+   "usps": [],
+   "coordinate": [
+    4.903523,
+    52.387356
+   ],
+   "image": "/images/b0b91f-w300-s-fwj/sausalitolaan-212",
+   "id": "b30352",
+   "url": "/woning/amsterdam-sausalitolaan-212",
+   "source": {
+    "feed": "eyemove",
+    "id": "34871523",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/Amsterdam-Sausalitolaan-212/",
+    "lastImported": "2026-10-31T15:06:54.982Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "Amsterdam",
+    "house": "Hammarbystraat 196"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 2105,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 70,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 801000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 283,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "available",
+    "code": 1
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 98,
+   "rooms": 3,
+   "interestedParties": 30,
+   "sourceId": "34869668",
+   "acceptance": "2026-11-16T00:00:00.000Z",
+   "usps": [],
+   "coordinate": [
+    4.902515,
+    52.386313
+   ],
+   "image": "/images/e3ab7a-w300-s-fwj/hammarbystraat-196",
+   "id": "399224",
+   "url": "/woning/amsterdam-hammarbystraat-196",
+   "source": {
+    "feed": "eyemove",
+    "id": "34869668",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/Amsterdam-Hammarbystraat-196/",
+    "lastImported": "2026-10-31T15:06:55.010Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "'s-Gravenhage",
+    "house": "Kasteellaan 899"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 1280,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 60,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 300000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 195,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "rentreserved",
+    "code": 2
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 52,
+   "rooms": 2,
+   "interestedParties": 145,
+   "sourceId": "35159627",
+   "acceptance": "2026-11-20T00:00:00.000Z",
+   "usps": [],
+   "coordinate": [
+    4.336832,
+    52.067096
+   ],
+   "image": "/images/dec53c-w300-s-fwj/kasteellaan-899",
+   "id": "95a373",
+   "url": "/woning/s-gravenhage-kasteellaan-899",
+   "source": {
+    "feed": "eyemove",
+    "id": "35159627",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/s-Gravenhage-Kasteellaan-899/",
+    "lastImported": "2026-10-31T15:06:54.423Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "Delft",
+    "house": "Theodora Eigemanpad 218"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 1590,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 60,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 460000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 218,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "option",
+    "code": 3
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 82,
+   "rooms": 3,
+   "interestedParties": 36,
+   "sourceId": "35159060",
+   "acceptance": "2026-11-17T00:00:00.000Z",
+   "usps": [
+    {
+     "type": "Overzicht",
+     "text": "Bij deze woning is het huren van een parkeerplaats à €80 p/m servicekosten een vereiste. "
+    }
+   ],
+   "coordinate": [
+    4.342175,
+    51.998202
+   ],
+   "image": "/images/ccda42-w300-s-fwj/theodora-eigemanpad-218",
+   "id": "48d198",
+   "url": "/woning/delft-theodora-eigemanpad-218",
+   "source": {
+    "feed": "eyemove",
+    "id": "35159060",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/Delft-Theodora-Eigemanpad-218/",
+    "lastImported": "2026-10-31T15:06:54.458Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "Amsterdam",
+    "house": "Wittgensteinlaan 29 ppl"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 76,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 0,
+     "minMonths": 0,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 0,
+     "refdate": ""
+    },
+    "rentalpoints": 0,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "available",
+    "code": 1
+   },
+   "attributes": {
+    "type": {
+     "category": "other",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 0,
+   "rooms": 0,
+   "interestedParties": 2,
+   "sourceId": "34483511",
+   "acceptance": "1970-01-01T00:00:00.000Z",
+   "usps": [],
+   "coordinate": [
+    4.835522,
+    52.355126
+   ],
+   "image": "/img/noimage.jpg",
+   "id": "a0ee5c",
+   "url": "/woning/amsterdam-wittgensteinlaan-29ppl",
+   "source": {
+    "feed": "eyemove",
+    "id": "34483511",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/Amsterdam-Wittgensteinlaan-29ppl/",
+    "lastImported": "2026-10-31T15:06:56.318Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  },
+  {
+   "address": {
+    "city": "'s-Gravenhage",
+    "house": "Maria Stuartplein 136"
+   },
+   "prices": {
+    "category": "rent",
+    "isPoundHouse": false,
+    "purchase": {
+     "price": 0,
+     "type": "",
+     "subType": "",
+     "vatRate": "",
+     "serviceCostsPerMonth": 0
+    },
+    "rental": {
+     "price": 1200,
+     "type": "permonth",
+     "subType": "",
+     "vatRate": "",
+     "tenantCosts": 0,
+     "securityDeposit": 0,
+     "serviceCharges": 60,
+     "minMonths": 12,
+     "nameTag": null
+    },
+    "woz": {
+     "value": 320000,
+     "refdate": "2025-01-01T00:00:00.000Z"
+    },
+    "rentalpoints": 180,
+    "parkingCharges": 0,
+    "parkingServiceCharges": 0
+   },
+   "status": {
+    "name": "available",
+    "code": 1
+   },
+   "attributes": {
+    "type": {
+     "category": "apartment",
+     "type": "",
+     "subType": "",
+     "buildType": "existing"
+    }
+   },
+   "plot": 57,
+   "rooms": 2,
+   "interestedParties": 88,
+   "sourceId": "34703842",
+   "acceptance": "2026-12-01T00:00:00.000Z",
+   "usps": [
+    {
+     "type": "Overzicht",
+     "text": "Op deze woning is de Huisvestingsverordening (Den Haag) van toepassing"
+    },
+    {
+     "type": "Overzicht",
+     "text": "Inkomen maximaal € 70.149 per jaar (eenpersoonshuishouden), maximaal € 93.531 (meerpersoonshuishouden)."
+    }
+   ],
+   "coordinate": [
+    4.328869,
+    52.081075
+   ],
+   "image": "/images/9580bd-w300-s-fwj/maria-stuartplein-136",
+   "id": "59f3b7",
+   "url": "/woning/s-gravenhage-maria-stuartplein-136",
+   "source": {
+    "feed": "eyemove",
+    "id": "34703842",
+    "v": 2,
+    "tiaraId": "",
+    "externalLink": "https://www.vbtverhuurmakelaars.nl/woning/s-Gravenhage-Maria-Stuartplein-136/",
+    "lastImported": "2026-10-31T15:06:55.662Z",
+    "feedurl": "https://vbth.eye-move.nl/export/Woningen.xml"
+   },
+   "isBouwinvest": false
+  }
+ ],
+ "pageCount": 1
+}

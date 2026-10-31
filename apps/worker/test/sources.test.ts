@@ -90,3 +90,48 @@ describe('common', () => {
     expect(daytimeNextDelay(new Date('2026-10-20T01:00:00Z'))).toBeGreaterThanOrEqual(15 * 60_000 * 0.9);
   });
 });
+
+import vbtFixture from './fixtures/vbt-search.json' with { type: 'json' };
+import { parseVanderLinden } from '../src/sources/vanderlinden.js';
+import { parseVbt } from '../src/sources/vbt.js';
+
+describe('Van der Linden', () => {
+  const html = readFileSync(new URL('./fixtures/vanderlinden-aanbod.html', import.meta.url), 'utf8');
+
+  it('leest beschikbare woningen van een echte pagina', () => {
+    const items = parseVanderLinden(html);
+    expect(items.length).toBeGreaterThan(50);
+    for (const i of items) {
+      expect(i.external_id).toMatch(/^\d+$/);
+      expect(i.url).toMatch(/^https:\/\/www\.vanderlinden\.nl\/huurwoning\//);
+      expect(i.rent_net).toBeGreaterThan(0);
+      expect(i.city).toBeTruthy();
+      expect(i.street).toBeTruthy();
+    }
+    expect(items.some((i) => i.label === 'Onder optie')).toBe(false);
+  });
+
+  it('weigert een pagina zonder woningen', () => {
+    expect(() => parseVanderLinden('<html><body>Onderhoud</body></html>')).toThrow(/geen woningen/);
+  });
+});
+
+describe('VB&T', () => {
+  it('neemt alleen beschikbare woningen en herkent parkeerplaatsen en middenhuur', () => {
+    const items = parseVbt(vbtFixture);
+    const available = vbtFixture.houses.filter((h) => h.status.name === 'available');
+    expect(items).toHaveLength(available.length);
+    for (const i of items) {
+      expect(i.url).toMatch(/^https:\/\/vbtverhuurmakelaars\.nl\/woning\//);
+      expect(i.rent_net).toBeGreaterThan(0);
+    }
+    expect(items.filter((i) => i.unit_kind === 'Parkeergelegenheid').length).toBe(
+      available.filter((h) => h.attributes?.type.category === 'other').length,
+    );
+    expect(items.some((i) => i.label === 'Middenhuur')).toBe(true);
+  });
+
+  it('weigert een lege lijst', () => {
+    expect(() => parseVbt({ houses: [] })).toThrow(/lege lijst/);
+  });
+});

@@ -7,7 +7,7 @@
 
 import * as cheerio from 'cheerio';
 import type { FetchResult, NormalizedListing, Source } from '../types.js';
-import { daytimeNextDelay, HEADERS, sleep, splitAddress } from './common.js';
+import { daytimeNextDelay, HTML_HEADERS, sleep, splitAddress } from './common.js';
 
 const BASE = 'https://ikwilhuren.nu';
 // Standaardstraal van de site voor "Gemeente Amsterdam" is 10 km.
@@ -101,7 +101,7 @@ export function createMvgmSource(fetchImpl: typeof fetch = fetch, now: () => num
   let lastFullSweep = 0;
 
   async function page(n: number) {
-    const res = await fetchImpl(LIST_URL(n), { headers: HEADERS, signal: AbortSignal.timeout(30_000) });
+    const res = await fetchImpl(LIST_URL(n), { headers: HTML_HEADERS, signal: AbortSignal.timeout(30_000) });
     if (!res.ok) throw new Error(`MVGM: HTTP ${res.status} op pagina ${n}`);
     const parsed = parseMvgmPage(await res.text());
     if (n === 1 && parsed.cards.length === 0) throw new Error('MVGM: geen woningen gevonden op pagina 1');

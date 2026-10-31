@@ -3,6 +3,8 @@ import { amsterdamMinuteOfDay, jitter } from '../time.js';
 export const USER_AGENT =
   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 export const HEADERS = { 'User-Agent': USER_AGENT, 'Accept-Language': 'nl-NL,nl;q=0.9' };
+// Voor HTML-pagina's: zeg dat we een webpagina willen (sommige sites weigeren verzoeken zonder).
+export const HTML_HEADERS = { ...HEADERS, Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8' };
 
 // Particuliere verhuurders publiceren overdag. Van 07:00 tot 23:00 elke 3 minuten, 's nachts elk kwartier.
 export function daytimeNextDelay(now: Date): number {
